@@ -1,0 +1,16 @@
+{
+    "require": {
+        "vlucas/phpdotenv": "^5.5"
+    },
+    "autoload": {
+        "psr-4": {
+            "Controller\\": "Controller/",
+            "Model\\": "Model/",
+            "Config\\": "Config/"
+        }
+    },
+    "require-dev": {
+        "symfony/var-dumper": "^6.3",
+        "filp/whoops": "^2.15"
+    }
+}
