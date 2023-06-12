@@ -33,6 +33,7 @@ class Login
             
             $email = $userInfo['email'] ?? '';
             $password = password_hash($userInfo['password'], PASSWORD_DEFAULT) ?? '';
+           
 
             if (empty($email)) {
                 echo json_encode([
@@ -66,8 +67,7 @@ class Login
             $passwordFromDb = $user['password'];
 
             if (password_verify($password, $passwordFromDb) && $emailFromDb === $email) {
-                // Authentication successful
-                // Create a token payload with user data
+               
                 $payload = [
                     'iat' => time(),
                     'exp' => time() + 3600,
@@ -82,14 +82,12 @@ class Login
 
                 ];
 
-                // Generate the token
+                
                 $token = JWT::encode($payload, $this->secretKey, 'HS256');
 
-                // Set the token as an HTTP-only cookie
+                
                 setcookie('auth_token', $token, time() + 3600, '/', 'localhost', false, true);
-                // You may also set other cookie options like path, domain, expiration, etc.
-
-                // Return a JSON response with a success message or user data
+                
                 $responseData = [
                     'success' => true,
                     'message' => 'Login successful',
@@ -102,7 +100,7 @@ class Login
                 return;
             }
 
-            // If authentication fails, return an error response
+            
             $responseData = [
                 'success' => false,
                 'message' => 'Invalid credentials',
@@ -116,16 +114,16 @@ class Login
 
     public function verifyToken()
     {
-        // Subsequent requests
+        
         if (isset($_COOKIE['auth_token'])) {
-            // Verify and decode the token
+            
             try {
                 $decodedToken = JWT::decode($_COOKIE['auth_token'], $this->secretKey);
 
-                // Check if the token has expired
+                
                 $currentTime = time();
                 if ($decodedToken->exp < $currentTime) {
-                    // Token has expired, return an error response
+                    
                     $responseData = [
                         'success' => false,
                         'message' => 'Token has expired',
@@ -135,13 +133,13 @@ class Login
                     exit;
                 }
 
-                // Check if the user exists in the database
+                
                 $userEmail = $decodedToken->email;
 
                 $userExists = UserController::getUser($userEmail);
 
                 if (!$userExists) {
-                    // User does not exist, return an error response
+                    
                     $responseData = [
                         'success' => false,
                         'message' => 'User does not exist',
@@ -152,7 +150,7 @@ class Login
                 }
 
 
-                // Return a JSON response with the authenticated user data or any other relevant information
+                
                 $responseData = [
                     'success' => true,
                     'message' => 'Authenticated user',
@@ -167,7 +165,7 @@ class Login
                 echo json_encode($responseData);
                 exit;
             } catch (Exception $e) {
-                // If the token verification fails, return an error response
+               
                 $responseData = [
                     'success' => false,
                     'message' => 'Token validation failed',
@@ -177,7 +175,7 @@ class Login
                 exit;
             }
         } else {
-            // If the token is not present, return an unauthorized error response
+           
             $responseData = [
                 'success' => false,
                 'message' => 'Unauthorized',

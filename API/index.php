@@ -19,7 +19,7 @@ if($path ==='api/users'){
     echo json_decode('{"message":"Hello World users"}');
 }
 if ($path === '/api') {
-    dump($path);
+    // dump($path);
     // header('Access-Control-Allow-Origin: *');
     // header('Content-Type: application/json');
     // $req = file_get_contents('php://input');
@@ -33,8 +33,9 @@ if ($path === '/api') {
     //      print_r($data);
     //     echo "</pre>";
     // }
-    echo json_encode(['message' => 'Hello World from API']);
-    //echo password_hash('test123', PASSWORD_DEFAULT);
+    //echo json_encode(['message' => 'Hello World from API']);
+    // echo password_hash('test123', PASSWORD_DEFAULT);
+    echo password_verify('test123','$2y$10$XPIj7KRV5lRUpg8rRfKH6uK6I0X60dmCgFgWD6QA0AF69ZB6SyHTK');
 }
 // if($path === '/api/test'){
 //     header('Access-Control-Allow-Origin: *');

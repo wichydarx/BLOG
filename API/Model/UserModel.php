@@ -2,11 +2,11 @@
 
 namespace Model;
 
-use Model\Model;
+use Config\Database\Database;
 
 class UserModel extends Model
 {
-
+    
     protected $table = 'users';
     public function getUserByEmail($email)
     {

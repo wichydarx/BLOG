@@ -5,7 +5,7 @@ namespace Model;
 use Config\Database\Database;
 
 
-require_once  '../../vendor/autoload/autoload.php';
+
 
 
 abstract class Model
@@ -14,8 +14,8 @@ abstract class Model
     protected $table;
 
     public function __construct(){
-        $pdo =new  Database();
-        $this->pdo = $pdo->connect();
+        $data =new Database();
+        $this->pdo = $data->connect();
 
     }
 

@@ -24,7 +24,7 @@ class UserController
             while ($row = $user->fetch(PDO::FETCH_ASSOC)) {
                 extract($row);
                 $userData = [
-                    'name' => $name,
+                    'name' => $first_name . ' ' . $last_name,
                     'email' => $email,
                     'role' => $role,
                     'created_at' => $createdAt
